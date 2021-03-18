@@ -17,13 +17,13 @@ const getPhones = () => {
   });
 };
 
-const getPhonesDetails = (url) => {
-  const listOfLink = url.map(id => fetch(`${detailsUrl}${id}.json`));
+const getPhonesDetails = (urls) => {
+  const links = urls.map(id => fetch(`${detailsUrl}${id}.json`));
 
-  return Promise.all(listOfLink);
+  return Promise.all(links);
 };
 
-const listOfPhones = (dataFromServer) => {
+const renderingDom = (dataFromServer) => {
   const ul = document.createElement('ul');
 
   ul.insertAdjacentHTML('afterbegin', `
@@ -34,6 +34,6 @@ const listOfPhones = (dataFromServer) => {
 };
 
 getPhones()
-  .then(listOfPhones)
+  .then(renderingDom)
   .then(getPhonesDetails)
   .catch(() => new Error('something wrong'));
